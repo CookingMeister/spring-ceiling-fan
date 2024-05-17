@@ -7,7 +7,7 @@ public class CeilingFan {
     private boolean reversed = false;
 
     public void pullSpeedCord() {
-        if (isDecember25th()) {
+        if (!isDecember25th()) {
             speed = (speed + 1) % 4;
             System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
         } else {
@@ -22,6 +22,10 @@ public class CeilingFan {
         } else {
             System.out.println("Ceiling fan is disabled on December 25th");
         }
+    }
+
+    public void getRecipe() {
+        System.out.println("Recipe incoming...");
     }
 
     private boolean isDecember25th() {
