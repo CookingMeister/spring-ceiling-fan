@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringCeilingFanApplication<spring-ceiling-fan>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ShawnMeister.springceilingfan.SpringCeilingFanApplication",
+            "projectName": "spring-ceiling-fan",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
