@@ -2,14 +2,18 @@ package com.ShawnMeister.springceilingfan;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CeilingFan {
-    private int speed = 0;
-    private boolean reversed = false;
+    public int speed = 0;
+    public boolean reversed = false;
 
     public void pullSpeedCord() {
         try {
             if (!isDecember25th()) {
                 speed = (speed + 1) % 4;
+                // setSpeed(speed);
                 System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
             } else {
                 System.out.println("Ceiling fan is disabled on December 25th");
@@ -23,6 +27,7 @@ public class CeilingFan {
         try {
             if (!isDecember25th()) {
                 reversed = !reversed;
+                // setReversed(reversed);
                 System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
             } else {
                 System.out.println("Ceiling fan is disabled on December 25th");
@@ -49,5 +54,23 @@ public class CeilingFan {
             System.out.println("An error occurred while checking the date: " + e.getMessage());
             return false;
         }
+    }
+
+    // public void setSpeed(int speed) {
+    //     this.speed = speed;
+    // }
+
+    // public void setReversed(boolean reversed) {
+    //     this.reversed = reversed;
+    // }
+
+    public int getSpeed() {
+        System.out.println("getSpeed: " + this.speed);
+        return this.speed;
+    }
+
+    public boolean isReversed() {
+        System.out.println("isReversed: " + this.reversed);
+        return this.reversed;
     }
 }
