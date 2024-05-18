@@ -6,14 +6,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CeilingFan {
-    public int speed = 0;
-    public boolean reversed = false;
+    // private int speed = 0;
+    // private boolean reversed = false;
+
+    private int speed;
+    private boolean reversed;
+
+    public CeilingFan() {
+        this.speed = 0;
+        this.reversed = false;
+    }
 
     public void pullSpeedCord() {
         try {
             if (!isDecember25th()) {
                 speed = (speed + 1) % 4;
-                // setSpeed(speed);
+                setSpeed(speed);
                 System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
             } else {
                 System.out.println("Ceiling fan is disabled on December 25th");
@@ -27,7 +35,7 @@ public class CeilingFan {
         try {
             if (!isDecember25th()) {
                 reversed = !reversed;
-                // setReversed(reversed);
+                setReversed(reversed);
                 System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
             } else {
                 System.out.println("Ceiling fan is disabled on December 25th");
@@ -56,21 +64,21 @@ public class CeilingFan {
         }
     }
 
-    // public void setSpeed(int speed) {
-    //     this.speed = speed;
-    // }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
 
-    // public void setReversed(boolean reversed) {
-    //     this.reversed = reversed;
-    // }
+    public void setReversed(boolean reversed) {
+        this.reversed = reversed;
+    }
 
     public int getSpeed() {
         System.out.println("getSpeed: " + this.speed);
-        return this.speed;
+        return speed;
     }
 
     public boolean isReversed() {
         System.out.println("isReversed: " + this.reversed);
-        return this.reversed;
+        return reversed;
     }
 }

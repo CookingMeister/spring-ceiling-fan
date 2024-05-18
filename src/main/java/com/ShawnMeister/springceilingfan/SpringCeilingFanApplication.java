@@ -1,5 +1,6 @@
 package com.ShawnMeister.springceilingfan;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class SpringCeilingFanApplication {
-	private CeilingFan ceilingFan;
 
-	public SpringCeilingFanApplication() {
-		ceilingFan = new CeilingFan();
-		// KeyEventHandler keyEventHandler = new KeyEventHandler(ceilingFan);
-		// keyEventHandler.createKeyListener();
-	}
+	@Autowired
+	private CeilingFan ceilingFan;
 
 	public static void main(String[] args) {
 		try {

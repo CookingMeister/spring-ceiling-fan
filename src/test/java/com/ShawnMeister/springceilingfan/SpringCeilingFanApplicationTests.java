@@ -1,16 +1,3 @@
-// package com.ShawnMeister.springceilingfan;
-
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
-
-// @SpringBootTest
-// class SpringCeilingFanApplicationTests {
-
-// 	@Test
-// 	void contextLoads() {
-// 	}
-
-// }
 package com.ShawnMeister.springceilingfan;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,19 +26,21 @@ class SpringCeilingFanApplicationTests {
 
     @BeforeEach
     void setUp() {
-        ceilingFan = new CeilingFan();
 		ceilingFan.setSpeed(0);
 		ceilingFan.setReversed(false);
     }
 
-     @Test
+    @Test
     void testPullSpeedCord() throws Exception {
         mockMvc.perform(get("/pull-speed-cord"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Speed cord pulled!"));
 
-        assertEquals(1, ceilingFan.getSpeed());
-        assertFalse(ceilingFan.isReversed());
+		/**
+		 * Asserts that the ceiling fan's speed is 1 and that it is not reversed.
+		 */
+		assertEquals(1, ceilingFan.getSpeed());
+		assertFalse(ceilingFan.isReversed());
     }
 
     @Test
@@ -64,6 +52,24 @@ class SpringCeilingFanApplicationTests {
         assertEquals(0, ceilingFan.getSpeed());
         assertTrue(ceilingFan.isReversed());
     }
+
+	@Test
+	void testPullSpeedCordMultipleTimes() {
+		for (int i = 0; i < 3; i++) {
+			ceilingFan.pullSpeedCord();
+		}
+		assertEquals(3, ceilingFan.getSpeed());
+		assertFalse(ceilingFan.isReversed());
+	}
+
+	@Test
+	void testPullDirectionCordMultipleTimes() {
+		ceilingFan.pullDirectionCord();
+		assertTrue(ceilingFan.isReversed());
+		ceilingFan.pullDirectionCord();
+		assertFalse(ceilingFan.isReversed());
+	}
+
 
 	// @Test
     // void testHandleKeyEvent() throws Exception {
