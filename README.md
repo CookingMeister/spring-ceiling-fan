@@ -34,7 +34,7 @@ To run this application locally, you will need:
 
 ## Testing
 
-Testing is done with JUnit Jupiter. To run tests, run: `mvn test` or open in your IDE and click the test icon.
+Testing is done with JUnit Jupiter and Mockito. To run tests, run: `mvn test` or open in your IDE and click the test icon.
 
 ## Contributing
 

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SpringCeilingFanApplication {
 
+	// Autowire the ceiling fan component
 	@Autowired
 	private CeilingFan ceilingFan;
 
+	// Main method
 	public static void main(String[] args) {
 		try {
 			SpringApplication.run(SpringCeilingFanApplication.class, args);
@@ -22,6 +24,7 @@ public class SpringCeilingFanApplication {
 		}
 	}
 
+	// default endpoint
 	@GetMapping("/")
 	public String index() {
 		return "<html>" +
@@ -52,6 +55,7 @@ public class SpringCeilingFanApplication {
 				"</html>";
 	}
 
+	//  /pull-speed-cord endpoint
 	@GetMapping("/pull-speed-cord")
 	public String pullSpeedCord() {
     	try {
@@ -63,7 +67,7 @@ public class SpringCeilingFanApplication {
     	}
 	}
 
-
+	//  /pull-direction-cord endpoint
 	@GetMapping("/pull-direction-cord")
 	public String pullDirectionCord() {
 		try {
@@ -75,6 +79,7 @@ public class SpringCeilingFanApplication {
 		}
 	}
 
+	//  /recipe endpoint
 	@GetMapping("/recipe")
 	public String getRecipe() {
 		try {
@@ -109,7 +114,7 @@ public class SpringCeilingFanApplication {
 				"<li>In a separate bowl, whisk together the milk, cream cheese, and chocolate chips.</li>" +
 				"<li>Stir the walnuts into the cream cheese mixture.</li>" +
 				"<li>Add all ingredients to one bowl and fold to combine</li>" +
-				"<li>Pour the batter into a 9x9 inch pan. Bake for 35 to 40 minutes or until the top is golden brown and a tootpick inserted comes out clean.</li>"
+				"<li>Pour the batter into a 9x9 inch pan. Bake for 35 to 40 minutes or until the top is golden brown and a toothpick inserted comes out clean.</li>"
 				+
 				"</ol>" +
 				"</body>" +
@@ -121,6 +126,7 @@ public class SpringCeilingFanApplication {
 		}
 	}
 
+	// Catch all endpoint for invalid requests
 	@GetMapping("/**")
 	public String handleNotFoundError() {
 		return "404 Error: Page not found!";

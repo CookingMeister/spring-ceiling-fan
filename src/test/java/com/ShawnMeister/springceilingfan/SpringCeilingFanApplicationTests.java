@@ -2,6 +2,8 @@ package com.ShawnMeister.springceilingfan;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +16,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+
 @SpringBootTest
 @AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 class SpringCeilingFanApplicationTests {
 
     @Autowired
@@ -24,25 +29,25 @@ class SpringCeilingFanApplicationTests {
     @Autowired
     private CeilingFan ceilingFan;
 
+    // Set the speed and direction of the ceiling fan to 0 and false
     @BeforeEach
     void setUp() {
-		ceilingFan.setSpeed(0);
-		ceilingFan.setReversed(false);
+        ceilingFan.setSpeed(0);
+        ceilingFan.setReversed(false);
     }
 
+    // Test the speed cord endpoint
     @Test
     void testPullSpeedCord() throws Exception {
         mockMvc.perform(get("/pull-speed-cord"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Speed cord pulled!"));
 
-		/**
-		 * Asserts that the ceiling fan's speed is 1 and that it is not reversed.
-		 */
-		assertEquals(1, ceilingFan.getSpeed());
-		assertFalse(ceilingFan.isReversed());
+        assertEquals(1, ceilingFan.getSpeed());
+        assertFalse(ceilingFan.isReversed());
     }
 
+    // Test the direction cord endpoint
     @Test
     void testPullDirectionCord() throws Exception {
         mockMvc.perform(get("/pull-direction-cord"))
@@ -53,20 +58,42 @@ class SpringCeilingFanApplicationTests {
         assertTrue(ceilingFan.isReversed());
     }
 
-	@Test
-	void testPullSpeedCordMultipleTimes() {
-		for (int i = 0; i < 3; i++) {
-			ceilingFan.pullSpeedCord();
-		}
-		assertEquals(3, ceilingFan.getSpeed());
-		assertFalse(ceilingFan.isReversed());
-	}
+    // Test the pull speed cord method
+    @Test
+    void testPullSpeedCordMultipleTimes() {
+        for (int i = 0; i < 3; i++) {
+            ceilingFan.pullSpeedCord();
+        }
+        assertEquals(3, ceilingFan.getSpeed());
+        assertFalse(ceilingFan.isReversed());
+    }
 
-	@Test
-	void testPullDirectionCordMultipleTimes() {
-		ceilingFan.pullDirectionCord();
-		assertTrue(ceilingFan.isReversed());
-		ceilingFan.pullDirectionCord();
-		assertFalse(ceilingFan.isReversed());
-	}
+    // Test the pull direction cord method
+    @Test
+    void testPullDirectionCordMultipleTimes() {
+        ceilingFan.pullDirectionCord();
+        assertTrue(ceilingFan.isReversed());
+        ceilingFan.pullDirectionCord();
+        assertFalse(ceilingFan.isReversed());
+    }
+
+    // Test the fan is disabled on December 25th
+    @Test
+    public void testOnDecember25th() {
+        // Create a new instance of CeilingFan with the overridden getToday() method
+        CeilingFan localCeilingFan = new CeilingFan() {
+            @Override
+            protected LocalDate getToday() {
+                return LocalDate.of(2024, 12, 25);
+            }
+        };
+
+        // Call the cord methods on the local instance
+        localCeilingFan.pullSpeedCord();
+        localCeilingFan.pullDirectionCord();
+
+        assertEquals(0, localCeilingFan.getSpeed());
+        assertFalse(localCeilingFan.isReversed());
+    }
+
 }
