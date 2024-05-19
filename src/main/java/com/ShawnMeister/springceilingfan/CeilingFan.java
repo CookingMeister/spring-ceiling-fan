@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CeilingFan {
-    // private int speed = 0;
-    // private boolean reversed = false;
 
     private int speed;
     private boolean reversed;
@@ -21,7 +19,6 @@ public class CeilingFan {
         try {
             if (!isDecember25th()) {
                 speed = (speed + 1) % 4;
-                setSpeed(speed);
                 System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
             } else {
                 System.out.println("Ceiling fan is disabled on December 25th");
@@ -35,7 +32,6 @@ public class CeilingFan {
         try {
             if (!isDecember25th()) {
                 reversed = !reversed;
-                setReversed(reversed);
                 System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
             } else {
                 System.out.println("Ceiling fan is disabled on December 25th");

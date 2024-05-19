@@ -69,24 +69,4 @@ class SpringCeilingFanApplicationTests {
 		ceilingFan.pullDirectionCord();
 		assertFalse(ceilingFan.isReversed());
 	}
-
-
-	// @Test
-    // void testHandleKeyEvent() throws Exception {
-    //     mockMvc.perform(post("/key-event")
-    //             .contentType("application/json")
-    //             .content("{\"key\": \"s\"}"))
-    //             .andExpect(status().isOk());
-
-    //     assertEquals(1, ceilingFan.getSpeed());
-    //     assertFalse(ceilingFan.isReversed());
-
-    //     mockMvc.perform(post("/key-event")
-    //             .contentType("application/json")
-    //             .content("{\"key\": \"d\"}"))
-    //             .andExpect(status().isOk());
-
-    //     assertEquals(1, ceilingFan.getSpeed());
-    //     assertTrue(ceilingFan.isReversed());
-    // }
 }

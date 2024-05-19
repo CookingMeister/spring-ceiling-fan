@@ -16,7 +16,7 @@ public class SpringCeilingFanApplication {
 	public static void main(String[] args) {
 		try {
 			SpringApplication.run(SpringCeilingFanApplication.class, args);
-			System.out.println("Hello, I am a big fan");
+			System.out.println("Hello, I am a big fan!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,4 +120,10 @@ public class SpringCeilingFanApplication {
 			return "Error getting recipe!";
 		}
 	}
+
+	@GetMapping("/**")
+	public String handleNotFoundError() {
+		return "404 Error: Page not found!";
+	}
+
 }
