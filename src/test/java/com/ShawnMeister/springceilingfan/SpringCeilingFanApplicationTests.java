@@ -79,7 +79,7 @@ class SpringCeilingFanApplicationTests {
 
     // Test the fan is disabled on December 25th
     @Test
-    public void testOnDecember25th() {
+    void testOnDecember25th() {
         // Create a new instance of CeilingFan with the overridden getToday() method
         CeilingFan localCeilingFan = new CeilingFan() {
             @Override

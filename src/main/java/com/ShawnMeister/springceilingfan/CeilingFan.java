@@ -1,11 +1,14 @@
 package com.ShawnMeister.springceilingfan;
 
 import java.time.LocalDate;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CeilingFan {
+
+    private static final Logger logger = LoggerFactory.getLogger(CeilingFan.class);
 
     private int speed;
     private boolean reversed;
@@ -22,12 +25,12 @@ public class CeilingFan {
             // Fan is disabled on December 25th
             if (!isDecember25th()) {
                 speed = (speed + 1) % 4;
-                System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
+                logger.info("Speed: {}, Direction: {}", speed, reversed ? "Reversed" : "Forward");
             } else {
-                System.out.println("Ceiling fan is disabled on December 25th");
+                logger.info("Ceiling fan is disabled on December 25th");
             }
         } catch (Exception e) {
-            System.out.println("An error occurred while pulling the speed cord: " + e.getMessage());
+            logger.error("An error occurred while pulling the speed cord: {}", e.getMessage());
         }
     }
 
@@ -37,21 +40,21 @@ public class CeilingFan {
             // Fan is disabled on December 25th
             if (!isDecember25th()) {
                 reversed = !reversed;
-                System.out.println("Speed: " + speed + ", Direction: " + (reversed ? "Reversed" : "Forward"));
+                logger.info("Speed: {}, Direction: {}", speed, reversed ? "Reversed" : "Forward");
             } else {
-                System.out.println("Ceiling fan is disabled on December 25th");
+                logger.info("Ceiling fan is disabled on December 25th");
             }
         } catch (Exception e) {
-            System.out.println("An error occurred while pulling the direction cord: " + e.getMessage());
+            logger.error("An error occurred while pulling the direction cord: {}", e.getMessage());
         }
     }
 
     // Easter egg
     public void getRecipe() {
         try {
-            System.out.println("Recipe incoming...");
+            logger.info("Recipe incoming...");
         } catch (Exception e) {
-            System.out.println("An error occurred while getting the recipe: " + e.getMessage());
+            logger.error("An error occurred while getting the recipe: {}", e.getMessage());
         }
     }
 
@@ -59,14 +62,13 @@ public class CeilingFan {
     public boolean isDecember25th() {
         try {
             LocalDate today = getToday();
-            System.out.println("Today is: " + today);
+            logger.info("Today is: {}", today);
             return today.getMonthValue() == 12 && today.getDayOfMonth() == 25;
         } catch (Exception e) {
-            System.out.println("An error occurred while checking the date: " + e.getMessage());
+            logger.error("An error occurred while checking the date: {}", e.getMessage());
             return false;
         }
     }
-
 
     // Method to get today's date (can be mocked in tests)
     protected LocalDate getToday() {
@@ -83,12 +85,12 @@ public class CeilingFan {
     }
 
     public int getSpeed() {
-        System.out.println("getSpeed: " + this.speed);
+        logger.info("getSpeed: {}", this.speed);
         return speed;
     }
 
     public boolean isReversed() {
-        System.out.println("isReversed: " + this.reversed);
+        logger.info("isReversed: {}", this.reversed);
         return reversed;
     }
 }
