@@ -1,4 +1,4 @@
-package com.ShawnMeister.springceilingfan;
+package com.shawnmeister.springceilingfan;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

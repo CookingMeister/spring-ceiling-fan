@@ -1,4 +1,4 @@
-package com.ShawnMeister.springceilingfan;
+package com.shawnmeister.springceilingfan;
 
 import java.time.LocalDate;
 import org.slf4j.Logger;
