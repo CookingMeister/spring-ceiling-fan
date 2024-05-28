@@ -21,27 +21,17 @@ RUN ./mvnw dependency:go-offline -DskipTests
 ################################################################################
 
 # Stage 2: Create a stage for building the application based on the stage with downloaded dependencies.
-FROM deps as package
+FROM deps as build
 
 WORKDIR /build
 
 COPY ./src ./src
 COPY pom.xml .
-RUN ./mvnw package -DskipTests && \
-    mv target/$(./mvnw help:evaluate -Dexpression=project.artifactId -q -DforceStdout)-$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout).jar target/app.jar
+RUN ./mvnw package -DskipTests
 
 ################################################################################
 
-# Stage 3: Create a stage for extracting the application into separate layers.
-FROM package as extract
-
-WORKDIR /build
-
-RUN java -Djarmode=layertools -jar target/app.jar extract --destination target/extracted
-
-################################################################################
-
-# Stage 4: Create a new stage for running the application with minimal runtime dependencies.
+# Stage 3: Create a new stage for running the application with minimal runtime dependencies.
 FROM eclipse-temurin:17-jre-jammy AS final
 
 # Create a non-privileged user that the app will run under.
@@ -58,12 +48,9 @@ USER appuser
 
 WORKDIR /app
 
-# Copy the extracted layers from the previous stage.
-COPY --from=extract /build/target/extracted/dependencies/ ./
-COPY --from=extract /build/target/extracted/spring-boot-loader/ ./
-COPY --from=extract /build/target/extracted/snapshot-dependencies/ ./
-COPY --from=extract /build/target/extracted/application/ ./
+# Copy the built jar file from the build stage.
+COPY --from=build /build/target/*.jar /app/app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "org.springframework.boot.loader.JarLauncher" ]
+ENTRYPOINT [ "java", "-jar", "/app/app.jar" ]
