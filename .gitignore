@@ -20,7 +20,6 @@
 target/
 HELP.md
 .dockerignore
-.mvn/
 README.Docker.md
 
 
