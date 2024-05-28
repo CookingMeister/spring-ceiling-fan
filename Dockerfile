@@ -13,8 +13,6 @@ COPY .mvn/ .mvn/
 RUN chmod 0755 mvnw
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.m2 so that subsequent builds don't have to
-# re-download packages.
 COPY pom.xml .
 RUN ./mvnw dependency:go-offline -DskipTests
 

@@ -18,6 +18,7 @@ A Java Spring Boot web application for controlling and monitoring ceiling fans. 
 - Java
 - Spring Boot
 - Spring Web MVC
+- Docker
 
 ## Getting Started
 
@@ -32,9 +33,33 @@ To run this application locally, you will need:
 4. Open your web browser and go to `http://localhost:8080`. You can now control your ceiling fan!
 5. You can also test the endpoints `/pull-speed-cord` and `/pull-direction-cord` using Postman or Insomnia or manually in the web browser.
 
+### Development with Docker
+
+To develop using Docker, follow these steps:
+
+1. Ensure you have Docker installed on your machine.
+2. Checkout the `dev` branch of this repository.
+3. Build the Docker image by running the following command in the project directory:
+
+   `docker build -t spring-ceiling-fan .`
+
+4. Run the Docker container:
+
+   `docker run -p 8080:8080 spring-ceiling-fan`
+
+5. The application will now be accessible at `http://localhost:8080`.
+
 ## Testing
 
-Testing is done with JUnit Jupiter and Mockito. To run tests, run: `mvn test` or open in your IDE and click the test icon.
+Testing is done with JUnit Jupiter and Mockito. To run tests, run:
+
+`mvn test`
+
+or open in your IDE and click the test icon.
+
+## Deployment
+
+This app is deployed to Heroku and can be found [here](https://spring-docker-ceiling-fan-66b0d16d6535.herokuapp.com/).
 
 ## Contributing
 
