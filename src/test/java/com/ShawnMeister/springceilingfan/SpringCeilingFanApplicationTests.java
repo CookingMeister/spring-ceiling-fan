@@ -28,7 +28,7 @@ class SpringCeilingFanApplicationTests {
     @Autowired
     private CeilingFan ceilingFan;
 
-    // Set the speed and direction of the ceiling fan to 0 and false
+    // Set the speed and direction of the ceiling fan to 0 and false before each test
     @BeforeEach
     void setUp() {
         ceilingFan.setSpeed(0);

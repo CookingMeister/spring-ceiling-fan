@@ -1,6 +1,7 @@
 package com.shawnmeister.springceilingfan;
 
 import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class CeilingFan {
         try {
             // Fan is disabled on December 25th
             if (!isDecember25th()) {
-                speed = (speed + 1) % 4;
+                setSpeed((getSpeed() + 1) % 4);
                 logger.info("Speed: {}, Direction: {}", speed, reversed ? "Reversed" : "Forward");
             } else {
                 logger.info("Ceiling fan is disabled on December 25th");
@@ -39,7 +40,7 @@ public class CeilingFan {
         try {
             // Fan is disabled on December 25th
             if (!isDecember25th()) {
-                reversed = !reversed;
+                setReversed(!isReversed());
                 logger.info("Speed: {}, Direction: {}", speed, reversed ? "Reversed" : "Forward");
             } else {
                 logger.info("Ceiling fan is disabled on December 25th");
