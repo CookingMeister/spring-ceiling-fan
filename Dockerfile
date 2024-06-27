@@ -3,14 +3,17 @@
 ################################################################################
 
 # Stage 1: Create a stage for resolving and downloading dependencies.
-FROM eclipse-temurin:17-jdk-jammy as deps
+FROM eclipse-temurin:21-jdk-jammy AS deps
 
 WORKDIR /build
 
-# Copy the mvnw wrapper with executable permissions set locally.
-COPY mvnw mvnw
-COPY .mvn/ .mvn/
-RUN chmod 0755 mvnw
+# Copy the mvnw wrapper and make it executable
+COPY mvnw .
+COPY .mvn .mvn
+RUN chmod +x mvnw
+
+# Ensure the file uses Unix line endings
+RUN sed -i 's/\r$//' mvnw
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 COPY pom.xml .
@@ -19,7 +22,7 @@ RUN ./mvnw dependency:go-offline -DskipTests
 ################################################################################
 
 # Stage 2: Create a stage for building the application based on the stage with downloaded dependencies.
-FROM deps as build
+FROM deps AS build
 
 WORKDIR /build
 
@@ -30,7 +33,7 @@ RUN ./mvnw package -DskipTests
 ################################################################################
 
 # Stage 3: Create a new stage for running the application with minimal runtime dependencies.
-FROM eclipse-temurin:17-jre-jammy AS final
+FROM eclipse-temurin:21-jre-jammy AS final
 
 # Create a non-privileged user that the app will run under.
 ARG UID=10001

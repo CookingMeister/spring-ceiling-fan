@@ -24,8 +24,8 @@ A Java Spring Boot web application for controlling and monitoring ceiling fans. 
 
 To run this application locally, you will need:
 
-- Java 17 or higher
-- Maven
+- Java 21 LTS or higher
+- Maven 3.9.8 or higher
 
 1. Clone this repository.
 2. Navigate to the project directory.
