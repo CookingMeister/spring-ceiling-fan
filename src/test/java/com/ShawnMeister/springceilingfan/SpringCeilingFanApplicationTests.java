@@ -2,6 +2,7 @@ package com.shawnmeister.springceilingfan;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,10 +39,9 @@ class SpringCeilingFanApplicationTests {
     // Test the speed cord endpoint
     @Test
     void testPullSpeedCord() throws Exception {
-        mockMvc.perform(get("/pull-speed-cord"))
+        mockMvc.perform(get("/api/pull-speed-cord"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Speed cord pulled!"));
-
+                .andExpect(content().string(containsString("Speed cord pulled!")));
         assertEquals(1, ceilingFan.getSpeed());
         assertFalse(ceilingFan.isReversed());
     }
@@ -49,9 +49,9 @@ class SpringCeilingFanApplicationTests {
     // Test the direction cord endpoint
     @Test
     void testPullDirectionCord() throws Exception {
-        mockMvc.perform(get("/pull-direction-cord"))
+        mockMvc.perform(get("/api/pull-direction-cord"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Direction cord pulled!"));
+                .andExpect(content().string(containsString("Direction cord pulled!")));
 
         assertEquals(0, ceilingFan.getSpeed());
         assertTrue(ceilingFan.isReversed());

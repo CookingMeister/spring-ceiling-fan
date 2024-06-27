@@ -31,7 +31,7 @@ To run this application locally, you will need:
 2. Navigate to the project directory.
 3. If you have Maven installed globally, you can run: `mvn spring-boot:run` or open in your IDE and click the run icon or run as a Java application.
 4. Open your web browser and go to `http://localhost:8080`. You can now control your ceiling fan!
-5. You can also test the endpoints `/pull-speed-cord` and `/pull-direction-cord` using Postman or Insomnia or manually in the web browser.
+5. You can also test the endpoints `/api/pull-speed-cord` and `/api/pull-direction-cord` using Postman or Insomnia or manually in the web browser.
 
 ### Development with Docker
 
