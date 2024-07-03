@@ -32,18 +32,21 @@ public class CeilingFanController {
     }
 
 // pull-direction-cord endpoint
-    @GetMapping("/api/pull-direction-cord")
-    public ResponseEntity<String> pullDirectionCord() {
-        try {
-            ceilingFan.pullDirectionCord();
-            String direction = ceilingFan.isReversed() ? "reverse" : "forward";
-            String response = String.format("Direction cord pulled! Current direction: %s", direction);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            logger.error("Error pulling direction cord", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error pulling direction cord!");
-        }
+@GetMapping("/api/pull-direction-cord")
+public String pullDirectionCord() {
+    try {
+        ceilingFan.pullDirectionCord();
+        String direction = ceilingFan.isReversed() ? "reverse" : "forward";
+        String response = String.format("Direction cord pulled! Current direction: %s", direction);
+        logger.info(response); // This will log to the console
+        return "<p>" + response + "</p>"; // Return HTML directly
+    } catch (Exception e) {
+        logger.error("Error pulling direction cord", e);
+        return "<p>Error pulling direction cord!</p>";
     }
+}
+
+
 
 // recipe endpoint
     // @GetMapping("/recipe")
