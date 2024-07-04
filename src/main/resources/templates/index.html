@@ -3,6 +3,8 @@
   <head>
     <title>Ceiling Fan Control</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
     <script th:inline="javascript">
       let isFirstSvg = true;
 
@@ -23,12 +25,13 @@
 
       document.addEventListener("keypress", function (e) {
         if (e.key === "s" || e.key === "S") {
-          fetch("/api/pull-speed-cord", { method: "GET" })
-            .then((response) => response.text())
-            .then((result) => console.log(result));
+          $.get("/api/pull-speed-cord", function (data) {
+            $("#fanSpeedStatus").html(data);
+            console.log(data);
+          });
         } else if (e.key === "d" || e.key === "D") {
           $.get("/api/pull-direction-cord", function (data) {
-            $("#fanStatus").html(data);
+            $("#fanDirectionStatus").html(data);
             console.log(data);
             toggleSvg();
           });
@@ -39,33 +42,44 @@
     </script>
     <style>
       body {
-        background-color: rgb(206, 229, 249);
-        color: brown;
-        font-family: "Courier New", Courier, monospace;
-        height: 80vh;
+        background-color: rgb(8, 41, 69);
+        color: darkblue;
+        font-family: "Roboto", monospace;
+        height: 90vh;
       }
       #svg2 {
         display: none;
       }
-    </style>
-  </head>
-  <body>
-    <div
-      style="
-        background-color: aliceblue;
-        margin: 4rem;    
+      .container {
+        background-color: rgb(206, 229, 249);
+        margin: 4rem;
         padding: 0 2rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: 2px solid brown;
+        border: 3px solid crimson;
         border-radius: 8px;
         box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
-        
-      "
+      }
+      footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 8vh;
+        width: 100%;
+        background-color: rgb(206, 229, 249);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"
     >
       <h1>Ceiling Fan Control</h1>
+      <div style="background-color: aliceblue; border-radius: 8px; padding: 1rem; margin: 1rem; box-shadow: black 1px 1px 4px 2px;">
       <svg
         id="svg1"
         fill="#000000"
@@ -118,33 +132,24 @@
           ></path>
         </g>
       </svg>
-      <div style="display: flex">
+      </div>
+      <div style="display: flex;">
         <h3>
           Press 's' to pull the speed cord and 'd' to pull the direction cord.
         </h3>
       </div>
-      <div id="fanStatus" style="font-weight: bold;
-      margin-bottom: 1rem;">
-        <!-- fan status -->
-        <p
-          th:text="${fanStatus != null ? fanStatus : 'Fan status will appear here.'}"
-        ></p>
+      <div style="font-weight: bold; margin-bottom: 1rem; color: crimson; font-style: italic;">
+        <div id="fanSpeedStatus">
+          <!--/*@thymesVar id="fanSpeedStatus" type="templates"*/-->
+          <p th:text="${fanSpeedStatus != null ? fanSpeedStatus : 'Fan speed will appear here.'}"></p>
+        </div>
+        <div id="fanDirectionStatus">
+          <!--/*@thymesVar id="fanDirectionStatus" type="templates"*/-->
+          <p th:text="${fanDirectionStatus != null ? fanDirectionStatus : 'Fan direction will appear here.'}"></p>
+        </div>
       </div>
     </div>
-    <footer
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 8vh;
-        width: 100%;
-        background-color: rgb(68, 62, 185);
-        color: antiquewhite;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-      "
-    >
+    <footer>
       © 2024 CookingMeister
     </footer>
   </body>

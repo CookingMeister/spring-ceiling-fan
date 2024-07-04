@@ -20,14 +20,15 @@ public class CeilingFanController {
 
 // pull-speed-cord endpoint
     @GetMapping("/api/pull-speed-cord")
-    public ResponseEntity<String> pullSpeedCord() {
+    public String pullSpeedCord() {
         try {
             ceilingFan.pullSpeedCord();
             String response = String.format("Speed cord pulled! Current speed: %d", ceilingFan.getSpeed());
-            return ResponseEntity.ok(response);
+            logger.info(response); // This will log to the console
+            return "<p>" + response + "</p>"; // Return HTML directly
         } catch (Exception e) {
             logger.error("Error pulling speed cord", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error pulling speed cord!");
+            return "<p>Error pulling speed cord!</p>";
         }
     }
 

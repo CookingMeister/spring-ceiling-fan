@@ -1,29 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 <head>
     <title>Secret Recipe</title>
     <style>
         body {
-            background-color: aliceblue;
-            color: brown;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            font-family: Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: circle;
+            padding: 0 0 0 1.5rem;
+        }
+        li {
+            margin-bottom: 0.25rem;
+        }
+        .instructions {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1 class="class">Cream Cheese Blondies Recipe</h1>
-    <h3>Ingredients: </h3>
-    <ul>
-        <li>1/2 cup butter</li>
-        <!-- ... other ingredients ... -->
-    </ul>
-    <h3>Method: </h3>
-    <ol>
-        <li>Preheat oven to 350 degrees F (175 degrees C).</li>
-        <!-- ... other steps ... -->
-    </ol>
+    <div class="container">
+        <h1>Small-Batch Cheesecake Blondies</h1>
+        <p><strong>Servings:</strong> 6 blondies</p>
+
+        <h2>Ingredients</h2>
+        <h3>For the cheesecake filling:</h3>
+        <ul>
+            <li>1 oz softened cream cheese</li>
+            <li>1 tbs. sugar</li>
+            <li>1/2 tsp. vanilla extract</li>
+        </ul>
+
+        <h3>For the blondies:</h3>
+        <ul>
+            <li>1/4 cup melted butter</li>
+            <li>1/4 cup brown sugar</li>
+            <li>1/4 cup sugar</li>
+            <li>1 egg yolk</li>
+            <li>1 tbs. milk</li>
+            <li>1 tsp. vanilla extract</li>
+            <li>1/2 cup + 3 tbs. flour</li>
+            <li>1/8 tsp. salt</li>
+        </ul>
+
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <ol>
+                <li>Preheat your oven to 350 degrees, and grease an 8-inch loaf pan with cooking spray. If you have it, line the pan with parchment paper for easy removal. Set aside.</li>
+                <li><strong>For the cheesecake filling:</strong> In a small bowl, stir together the softened cream cheese, sugar, and vanilla extract. Set aside.</li>
+                <li><strong>For the blondies:</strong> In a medium bowl, whisk together the melted butter, brown sugar, and sugar. Add in the egg yolk, milk, and vanilla extract and whisk until smooth. Add in the flour and salt and whisk until smooth.</li>
+                <li>Pour into your prepared loaf pan, and spread evenly so it reaches the edges of the pan. Dollop in the cream cheese mixture, and use a toothpick to swirl it into the blondie batter in figure-8 motions.</li>
+                <li>Bake the blondies for 26-28 minutes, or until the edges are golden brown, and the middle has completely set. Cool completely before enjoying!</li>
+            </ol>
+        </div>
+    </div>
 </body>
+</html>
