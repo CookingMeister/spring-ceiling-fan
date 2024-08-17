@@ -1,156 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
-    <title>Ceiling Fan Control</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <script th:inline="javascript">
-      let isFirstSvg = true;
+<head>
+  <title>Ceiling Fan Control</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 
+<style>
+  body {
+    background-color: rgb(8, 41, 69);
+    color: darkblue;
+    font-family: "Roboto", monospace;
+    height: 90vh;
+  }
 
-      function toggleSvg() {
-        const svg1 = document.getElementById("svg1");
-        const svg2 = document.getElementById("svg2");
+  #svg2 {
+    display: none;
+  }
 
-        if (isFirstSvg) {
-          svg1.style.display = "none";
-          svg2.style.display = "block";
-        } else {
-          svg1.style.display = "block";
-          svg2.style.display = "none";
-        }
+  .container {
+    background-color: rgb(206, 229, 249);
+    max-width: 60% !important;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid crimson;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+  }
 
-        isFirstSvg = !isFirstSvg;
+  .title {
+    margin-top: 2rem;
+  }
+  i {
+    margin: 0 .66rem;
+    transform: scale(1.4);
+  }
+  footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    width: 100%;
+    background-color: rgb(206, 229, 249);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+</style>
+
+  <script th:inline="javascript">
+    let isFirstSvg = true;
+
+    function toggleSvg() {
+      const svg1 = document.getElementById("svg1");
+      const svg2 = document.getElementById("svg2");
+
+      if (isFirstSvg) {
+        svg1.style.display = "none";
+        svg2.style.display = "block";
+      } else {
+        svg1.style.display = "block";
+        svg2.style.display = "none";
       }
 
-      document.addEventListener("keypress", function (e) {
-        if (e.key === "s" || e.key === "S") {
-          $.get("/api/pull-speed-cord", function (data) {
-            $("#fanSpeedStatus").html(data);
-            console.log(data);
-          });
-        } else if (e.key === "d" || e.key === "D") {
-          $.get("/api/pull-direction-cord", function (data) {
-            $("#fanDirectionStatus").html(data);
-            console.log(data);
-            toggleSvg();
-          });
-        } else if (e.key === "r" || e.key === "R") {
-          window.location.href = "/recipe";
-        }
-      });
-    </script>
-    <style>
-      body {
-        background-color: rgb(8, 41, 69);
-        color: darkblue;
-        font-family: "Roboto", monospace;
-        height: 90vh;
+      isFirstSvg = !isFirstSvg;
+    }
+
+    document.addEventListener("keypress", function (e) {
+      if (e.key === "s" || e.key === "S") {
+        $.get("/api/pull-speed-cord", function (data) {
+          $("#fanSpeedStatus").html(data);
+          console.log(data);
+        });
+      } else if (e.key === "d" || e.key === "D") {
+        $.get("/api/pull-direction-cord", function (data) {
+          $("#fanDirectionStatus").html(data);
+          console.log(data);
+          toggleSvg();
+        });
+      } else if (e.key === "r" || e.key === "R") {
+        window.location.href = "/recipe";
       }
-      #svg2 {
-        display: none;
-      }
-      .container {
-        background-color: rgb(206, 229, 249);
-        margin: 4rem;
-        padding: 0 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border: 3px solid crimson;
-        border-radius: 8px;
-        box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
-      }
-      footer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 8vh;
-        width: 100%;
-        background-color: rgb(206, 229, 249);
-        position: fixed;
-        bottom: 0;
-        left: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container"
-    >
-      <h1>Ceiling Fan Control</h1>
-      <div style="background-color: aliceblue; border-radius: 8px; padding: 1rem; margin: 1rem; box-shadow: black 1px 1px 4px 2px;">
-      <svg
-        id="svg1"
-        fill="#000000"
-        width="256px"
-        height="256px"
-        viewBox="-5 -5 60.00 60.00"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        stroke="#000000"
-        stroke-width="0.0005"
-        transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"
-      >
+    });
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">Ceiling Fan Control</h1>
+    <div
+      style="background-color: aliceblue; border-radius: 8px; padding: 1rem; margin: 1rem; box-shadow: black 1px 1px 4px 2px;">
+      <svg id="svg1" fill="#000000" width="256px" height="256px" viewBox="-5 -5 60.00 60.00"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" stroke="#000000"
+        stroke-width="0.0005" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g
-          id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke="#CCCCCC"
-          stroke-width="0.1"
-        ></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
+          stroke-width="0.1"></g>
         <g id="SVGRepo_iconCarrier">
           <path
-            d="M22.986328 3.8359375L21.013672 4.1640625L22.013672 10.164062 A 1.0001 1.0001 0 0 0 23 11L24 11L24 30L19 30C18.45 30 18 30.45 18 31L18 32.308594L1.1347656 30.009766 A 1.0001 1.0001 0 0 0 1.0351562 30 A 1.0001 1.0001 0 0 0 0.10546875 31.447266L2 35.236328C2.84645 36.92798 4.5809786 38 6.4726562 38L18 38L18 39C18 39.55 18.45 40 19 40L31 40C31.55 40 32 39.55 32 39L32 37.691406L48.865234 39.990234 A 1.0001 1.0001 0 0 0 49.894531 38.552734L48 34.763672C47.15355 33.07202 45.419021 32 43.527344 32L32 32L32 31C32 30.45 31.55 30 31 30L26 30L26 11L27 11 A 1.0001 1.0001 0 0 0 27.986328 10.164062L28.986328 4.1640625L27.013672 3.8359375L26.152344 9L23.847656 9L22.986328 3.8359375 z M 2.7402344 32.246094L20.867188 34.71875L19.585938 36L6.4726562 36C5.3343339 36 4.2986125 35.360145 3.7890625 34.341797L2.7402344 32.246094 z M 30.414062 34L43.527344 34C44.665666 34 45.701388 34.639855 46.210938 35.658203L47.259766 37.753906L29.132812 35.28125L30.414062 34 z M 20 42C20 44.206 22.243 46 25 46C27.757 46 30 44.206 30 42L20 42 z"
-          ></path>
+            d="M22.986328 3.8359375L21.013672 4.1640625L22.013672 10.164062 A 1.0001 1.0001 0 0 0 23 11L24 11L24 30L19 30C18.45 30 18 30.45 18 31L18 32.308594L1.1347656 30.009766 A 1.0001 1.0001 0 0 0 1.0351562 30 A 1.0001 1.0001 0 0 0 0.10546875 31.447266L2 35.236328C2.84645 36.92798 4.5809786 38 6.4726562 38L18 38L18 39C18 39.55 18.45 40 19 40L31 40C31.55 40 32 39.55 32 39L32 37.691406L48.865234 39.990234 A 1.0001 1.0001 0 0 0 49.894531 38.552734L48 34.763672C47.15355 33.07202 45.419021 32 43.527344 32L32 32L32 31C32 30.45 31.55 30 31 30L26 30L26 11L27 11 A 1.0001 1.0001 0 0 0 27.986328 10.164062L28.986328 4.1640625L27.013672 3.8359375L26.152344 9L23.847656 9L22.986328 3.8359375 z M 2.7402344 32.246094L20.867188 34.71875L19.585938 36L6.4726562 36C5.3343339 36 4.2986125 35.360145 3.7890625 34.341797L2.7402344 32.246094 z M 30.414062 34L43.527344 34C44.665666 34 45.701388 34.639855 46.210938 35.658203L47.259766 37.753906L29.132812 35.28125L30.414062 34 z M 20 42C20 44.206 22.243 46 25 46C27.757 46 30 44.206 30 42L20 42 z">
+          </path>
         </g>
       </svg>
-      <svg
-        id="svg2"
-        fill="#000000"
-        width="256px"
-        height="256px"
-        viewBox="-5 -5 60.00 60.00"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        transform="rotate(0)matrix(-1, 0, 0, 1, 0, 0)"
-        stroke="#000000"
-        stroke-width="0.0005"
-      >
+      <svg id="svg2" fill="#000000" width="256px" height="256px" viewBox="-5 -5 60.00 60.00"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        transform="rotate(0)matrix(-1, 0, 0, 1, 0, 0)" stroke="#000000" stroke-width="0.0005">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g
-          id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke="#CCCCCC"
-          stroke-width="0.4"
-        ></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
+          stroke-width="0.4"></g>
         <g id="SVGRepo_iconCarrier">
           <path
-            d="M22.986328 3.8359375L21.013672 4.1640625L22.013672 10.164062 A 1.0001 1.0001 0 0 0 23 11L24 11L24 30L19 30C18.45 30 18 30.45 18 31L18 32.308594L1.1347656 30.009766 A 1.0001 1.0001 0 0 0 1.0351562 30 A 1.0001 1.0001 0 0 0 0.10546875 31.447266L2 35.236328C2.84645 36.92798 4.5809786 38 6.4726562 38L18 38L18 39C18 39.55 18.45 40 19 40L31 40C31.55 40 32 39.55 32 39L32 37.691406L48.865234 39.990234 A 1.0001 1.0001 0 0 0 49.894531 38.552734L48 34.763672C47.15355 33.07202 45.419021 32 43.527344 32L32 32L32 31C32 30.45 31.55 30 31 30L26 30L26 11L27 11 A 1.0001 1.0001 0 0 0 27.986328 10.164062L28.986328 4.1640625L27.013672 3.8359375L26.152344 9L23.847656 9L22.986328 3.8359375 z M 2.7402344 32.246094L20.867188 34.71875L19.585938 36L6.4726562 36C5.3343339 36 4.2986125 35.360145 3.7890625 34.341797L2.7402344 32.246094 z M 30.414062 34L43.527344 34C44.665666 34 45.701388 34.639855 46.210938 35.658203L47.259766 37.753906L29.132812 35.28125L30.414062 34 z M 20 42C20 44.206 22.243 46 25 46C27.757 46 30 44.206 30 42L20 42 z"
-          ></path>
+            d="M22.986328 3.8359375L21.013672 4.1640625L22.013672 10.164062 A 1.0001 1.0001 0 0 0 23 11L24 11L24 30L19 30C18.45 30 18 30.45 18 31L18 32.308594L1.1347656 30.009766 A 1.0001 1.0001 0 0 0 1.0351562 30 A 1.0001 1.0001 0 0 0 0.10546875 31.447266L2 35.236328C2.84645 36.92798 4.5809786 38 6.4726562 38L18 38L18 39C18 39.55 18.45 40 19 40L31 40C31.55 40 32 39.55 32 39L32 37.691406L48.865234 39.990234 A 1.0001 1.0001 0 0 0 49.894531 38.552734L48 34.763672C47.15355 33.07202 45.419021 32 43.527344 32L32 32L32 31C32 30.45 31.55 30 31 30L26 30L26 11L27 11 A 1.0001 1.0001 0 0 0 27.986328 10.164062L28.986328 4.1640625L27.013672 3.8359375L26.152344 9L23.847656 9L22.986328 3.8359375 z M 2.7402344 32.246094L20.867188 34.71875L19.585938 36L6.4726562 36C5.3343339 36 4.2986125 35.360145 3.7890625 34.341797L2.7402344 32.246094 z M 30.414062 34L43.527344 34C44.665666 34 45.701388 34.639855 46.210938 35.658203L47.259766 37.753906L29.132812 35.28125L30.414062 34 z M 20 42C20 44.206 22.243 46 25 46C27.757 46 30 44.206 30 42L20 42 z">
+          </path>
         </g>
       </svg>
+    </div>
+    <div style="display: flex;">
+      <h3>
+        Press 's' to pull the speed cord and 'd' to pull the direction cord.
+      </h3>
+    </div>
+    <div style="font-weight: bold; margin-bottom: 1rem; color: crimson; font-style: italic;">
+      <div id="fanSpeedStatus" style="margin: .5rem 0;">
+        <!--/*@thymesVar id="fanSpeedStatus" type="templates"*/-->
+        <p th:text="${fanSpeedStatus != null ? fanSpeedStatus : 'Fan speed will appear here.'}"></p>
       </div>
-      <div style="display: flex;">
-        <h3>
-          Press 's' to pull the speed cord and 'd' to pull the direction cord.
-        </h3>
-      </div>
-      <div style="font-weight: bold; margin-bottom: 1rem; color: crimson; font-style: italic;">
-        <div id="fanSpeedStatus">
-          <!--/*@thymesVar id="fanSpeedStatus" type="templates"*/-->
-          <p th:text="${fanSpeedStatus != null ? fanSpeedStatus : 'Fan speed will appear here.'}"></p>
-        </div>
-        <div id="fanDirectionStatus">
-          <!--/*@thymesVar id="fanDirectionStatus" type="templates"*/-->
-          <p th:text="${fanDirectionStatus != null ? fanDirectionStatus : 'Fan direction will appear here.'}"></p>
-        </div>
+      <div id="fanDirectionStatus" style="margin: 1rem 0;">
+        <!--/*@thymesVar id="fanDirectionStatus" type="templates"*/-->
+        <p th:text="${fanDirectionStatus != null ? fanDirectionStatus : 'Fan direction will appear here.'}"></p>
       </div>
     </div>
-    <footer>
-      © 2024 CookingMeister
-    </footer>
-  </body>
+  </div>
+  <footer>
+    <p style="padding-right: 1rem;">© 2024 CookingMeister</p>
+    <a href="https://github.com/CookingMeister" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-github-square"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/shawn-meister/" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-linkedin"></i>
+  </footer>
+</body>
+
 </html>

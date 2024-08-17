@@ -14,7 +14,7 @@ public class WebController {
     public WebController(CeilingFan ceilingFan) {
         this.ceilingFan = ceilingFan;
     }
-
+    // index endpoint
     @GetMapping("/")
     public String index() {
         try {
@@ -25,6 +25,7 @@ public class WebController {
         }
     }
 
+    // recipe endpoint
     @GetMapping("/api/recipe")
     public String recipe() {
         try {
@@ -33,6 +34,17 @@ public class WebController {
         } catch (Exception e) {
             logger.error("Error getting recipe", e);
             return "Error getting recipe!";
+        }
+    }
+
+    // Catch all endpoint for invalid requests
+    @GetMapping("/**")
+    public String handleNotFoundError() {
+        try {
+            return "404";
+        } catch (Exception e) {
+            logger.error("Error getting 404.html", e);
+            return "Error getting 404.html";
         }
     }
 }
